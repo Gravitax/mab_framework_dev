@@ -72,7 +72,15 @@
 
 <!-- ---------- LIGHTBOX -->
 
-<img class="mab_lightbox" lb-id="mab_lightbox" src="img.jpg">
+<img class="mab_lightbox" data-id="mab_lightbox" src="img.jpg">
+
+	
+<!-- ---------- IMG_COMP -->
+
+<div class="mab_img_comp">
+	<div class="mab_img_comp__img mab_img_comp__overlay" style="background-image: url('images/img_test.jpg');"></div>
+	<div class="mab_img_comp__img" style="background-image: url('images/img_test.jpg');"></div>
+</div>
 
 
 <!-- ========== END TEMPLATE -->

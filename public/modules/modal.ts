@@ -3,19 +3,14 @@ export const	show_modal = (modal : HTMLElement) : void => {
 	modal.setAttribute("aria-hidden", "false");
 };
 
-// export const	hidde_modal = (modal : HTMLElement) : void => {
-// 	let	mab_lightbox = modal.querySelectorAll(".slider_inner > *");
-
-// 	window.setTimeout(() => {
-// 		modal.style.display = "none";
-// 		if (mab_lightbox && modal.id == "mab_lightbox_modal")
-// 			mab_lightbox.forEach((tmp) => tmp.remove());
-// 	}, 500);
-// 	modal.setAttribute("aria-hidden", "true");
-// };
-
 export const	hidde_modal = (modal : HTMLElement) : void => {
-	window.setTimeout(() : void => { modal.style.display = "none"; }, 500);
+	const	mab_lightbox : NodeListOf<HTMLElement> = modal.querySelectorAll(".mab_slider__element");
+
+	window.setTimeout(() : void => {
+		modal.style.display = "none";
+		if (mab_lightbox && modal.id == "mab_lightbox_modal")
+			mab_lightbox.forEach((tmp) => tmp.remove());
+	}, 500);
 	modal.setAttribute("aria-hidden", "true");
 };
 

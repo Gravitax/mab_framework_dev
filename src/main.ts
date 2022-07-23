@@ -6,13 +6,9 @@ import "./style.css";
 
 document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
 	<div id="foo"></div>
-	<div class="mab_slider" id="mab_slider">
-		<img class="mab_slider__next" src="public/images/next.png">
-		<img class="mab_slider__prev" src="public/images/prev.png">
-		<div class="mab_slider__inner">
-			<span class="mab_slider__element active" style="background: url('public/images/next.png') no-repeat; background-size: contain; background-position: center;"></span>
-			<span class="mab_slider__element" href="public/images/prev.png"></span>
-		</div>
+	<div class="mab_img_comp">
+		<div class="mab_img_comp__img mab_img_comp__overlay" style="background-image: url('public/images/next.png');"></div>
+		<div class="mab_img_comp__img" style="background-image: url('public/images/prev.png');"></div>
 	</div>
 `;
 

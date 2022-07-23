@@ -11,7 +11,7 @@ const	init_framework = () : void => {
 	const	horodatage : number = new Date().getTime();
 
 	files_css.forEach((file : string) : void => {
-		mab("head").createElement({ append : true, tag : "link",
+		mab("head").create_element({ append : true, tag : "link",
 			props : { "type" : "text/css", "rel" : "stylesheet", "href" : `./public/css/${file}.css?h=${horodatage}` } });
 	});
 	

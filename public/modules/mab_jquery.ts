@@ -12,29 +12,12 @@ export class	ElementCollection extends Array {
 		this.forEach((target) => target.addEventListener(event, callback, options));
 	}
 	
-	next() : ElementCollection[] {
-		return (
-			this.map((target : HTMLElement) : HTMLElement => <HTMLElement>target.nextElementSibling)
-				.filter((e : HTMLElement) : boolean => e != null) as ElementCollection
-		);
-	}
-	
-	prev() : ElementCollection[] {
-		return (
-			this.map((target : HTMLElement) : HTMLElement => <HTMLElement>target.previousElementSibling)
-				.filter((e : HTMLElement) : boolean => e != null) as ElementCollection
-		);
-	}
-	
 	addClass(classList : string | string[]) : void {
 		this.forEach((target : HTMLElement) : void => {
 			if (typeof(classList) === "string")
 				classList = classList.split(' ');
 			classList.forEach((className : string) : void => {
-				className = className.trim();
-				if (className.length < 1)
-					return ;
-				target.classList.add(className);
+				target.classList.add(className.trim());
 			});
 		});
 	}
@@ -44,10 +27,7 @@ export class	ElementCollection extends Array {
 			if (typeof(classList) === "string")
 				classList = classList.split(' ');
 			classList.forEach((className : string) : void => {
-				className = className.trim();
-				if (className.length < 1)
-					return ;
-				target.classList.remove(className);
+				target.classList.remove(className.trim());
 			});
 		});
 	}
@@ -57,10 +37,7 @@ export class	ElementCollection extends Array {
 			if (typeof(classList) === "string")
 				classList = classList.split(' ');
 			classList.forEach((className : string) : void => {
-				className = className.trim();
-				if (className.length < 1)
-					return ;
-				target.classList.toggle(className);
+				target.classList.toggle(className.trim());
 			});
 		});
 	}
@@ -89,7 +66,7 @@ export class	ElementCollection extends Array {
 		this.forEach((target : HTMLElement) : void => target.before(element));
 	}
 	
-	createElement({ ...data } : {
+	create_element({ ...data } : {
 		tag			: string,
 		props		?: { [key : string] : string },
 		innerText	?: string,
