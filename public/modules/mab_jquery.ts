@@ -1,4 +1,4 @@
-class	ElementCollection extends Array {
+export class	ElementCollection extends Array {
 
 	ready(callback : Function) : void {
 		const   is_ready = this.some((e : Document) : boolean => {
@@ -12,17 +12,17 @@ class	ElementCollection extends Array {
 		this.forEach((target) => target.addEventListener(event, callback, options));
 	}
 	
-	next() : HTMLElement[] {
+	next() : ElementCollection[] {
 		return (
 			this.map((target : HTMLElement) : HTMLElement => <HTMLElement>target.nextElementSibling)
-				.filter((e : HTMLElement) : boolean => e != null)
+				.filter((e : HTMLElement) : boolean => e != null) as ElementCollection
 		);
 	}
 	
-	prev() : HTMLElement[] {
+	prev() : ElementCollection[] {
 		return (
 			this.map((target : HTMLElement) : HTMLElement => <HTMLElement>target.previousElementSibling)
-				.filter((e : HTMLElement) : boolean => e != null)
+				.filter((e : HTMLElement) : boolean => e != null) as ElementCollection
 		);
 	}
 	
@@ -67,8 +67,9 @@ class	ElementCollection extends Array {
 	
 	style({ ...property } : { [key : string] : string }) : void {
 		this.forEach((target : HTMLElement) : void => {
-			for (const [key, value] of Object.entries(property))
+			for (const [key, value] of Object.entries(property)) {
 				target.style[key.trim() as any] = value.trim();
+			}
 		});
 	}
 	
