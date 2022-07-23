@@ -1,0 +1,340 @@
+/* GENERAL */
+
+*, ::after, ::before { box-sizing: border-box; }
+
+html, body {
+	padding: 0; margin: 0;
+	font-family: sans-serif; font-display: swap;
+	position: relative; z-index: 0;
+	scroll-behavior: smooth;
+	overscroll-behavior: none;
+}
+
+img { max-width: 100%; height: auto; }
+
+a { color: inherit; text-decoration: none; }
+
+button, input, select {
+	/* -webkit-appearance: unset; */
+	border: none;
+	box-shadow: none;
+	outline: none;
+}
+
+*:focus, *:active {
+	border-color: none;
+	-webkit-box-shadow: none;
+	box-shadow: none;
+	outline: none;
+}
+
+h1, h2, h3, h4, h5, p { margin-top: 0; }
+
+/* ========================================== */
+
+.inline { display: inline-block; }
+.block { display: block; }
+.flex { display: flex; }
+
+.bold { font-weight: bolder; }
+.light { font-weight: lighter; }
+.normal { font-weight: normal; }
+
+.lower { text-transform: lowercase; }
+.upper { text-transform: uppercase; }
+
+.hide { display: none !important; visibility: hidden; }
+
+@media (min-width: 1025px) {
+	.mobile { display: none !important; visibility: hidden; }
+}
+
+@media (max-width: 1024px) {
+	.desktop { display: none !important; visibility: hidden; }
+}
+
+/* ========================================== */
+
+/* FONT_SIZE */
+
+.fsize_vbig { font-size: clamp(28px, 3vw, 58px); line-height: 1.5em; }
+.fsize_big { font-size: clamp(24px, 2.4vw, 46px); line-height: 1.5em; }
+.fsize_vlg { font-size: clamp(21px, 1.9vw, 36px); line-height: 1.5em; }
+.fsize_lg { font-size: clamp(18px, 1.5vw, 28px); line-height: 1.25em }
+.fsize_vmd { font-size: clamp(16px, 1.3vw, 24px); line-height: 1.25em; }
+.fsize_md { font-size: clamp(14px, 1vw, 19px); line-height: 1.25em; }
+.fsize_sm { font-size: clamp(12px, 0.8vw, 16px); line-height: 1.25em; }
+.fsize_vsm { font-size: clamp(10px, 0.625vw, 12px); line-height: 1.25em; }
+
+sup { font-size: 0.5em; top: -1em; }
+
+/* ========================================== */
+
+/* FLEX_WRAPPER */
+
+.row_wrapper { display: flex; justify-content: center; align-items: center; flex-wrap: wrap; }
+.column_wrapper { display: flex; justify-content: center; align-items: center; flex-direction: column; flex-wrap: wrap; }
+
+/* ========================================== */
+
+/* FIT_CONTENT */
+
+.fit_content {
+	width: fit-content; width: intrinsic; width: -moz-max-content;
+	height: fit-content; height: intrinsic; height: -moz-max-content;
+}
+.fit_width {
+	width: fit-content;
+	width: intrinsic;
+	width: -moz-max-content;
+}
+.fit_height {
+	height: fit-content;
+	height: intrinsic;
+	height: -moz-max-content;
+}
+
+/* ========================================== */
+
+/* SCROLL */
+
+.mab_scroll { cursor: pointer; }
+
+/* ========================================== */
+
+/* COLLAPSE */
+
+.mab_collapse__button { cursor: pointer; }
+.mab_collapse__content:not(.is_open) {
+	overflow: hidden;
+	height: 0;
+	transition: height 0.3s ease;
+}
+
+/* ========================================== */
+
+/* MODALS */
+
+.mab_modal {
+	position: fixed; top: 0; left: 0; z-index: 2147483647;
+	display: none; justify-content: center; align-items: center;
+	width: 100vw; height: 100vh;
+	background-color: rgba(0, 0, 0, 0.6);
+	cursor: pointer;
+	animation: fade_out 0.5s both;
+	overscroll-behavior: none;
+}
+.mab_modal__wrapper {
+	width: 85%;
+	max-width: calc(100vw - 42px); max-height: calc(100vh - 42px);
+	position: relative;
+	background-color: #fff;
+	padding: 42px;
+	overflow: auto;
+	cursor: initial;
+	animation: slide_to_bottom 0.5s both;
+	overscroll-behavior-y: contain;
+}
+.mab_modal__open { cursor: pointer; }
+.mab_modal__wrapper > .mab_modal__close {
+	position: absolute; top: 15px; right: 15px;
+	cursor: pointer;
+	width: 20px; height: 20px;
+	background: url("/public/images/close.png") no-repeat;
+	background-size: contain;
+	background-position: center;
+	transition: transform 0.4s ease;
+}
+.mab_modal[aria-hidden="false"] { animation: fade_in 0.5s both; }
+.mab_modal[aria-hidden="false"] .mab_modal__wrapper { animation: slide_from_top 0.5s both; }
+
+/* ========================================== */
+
+/* CHECKBOX */
+
+.mab_checkbox {
+	position: relative;
+	width: 100px; height: 50px;
+	margin: 5px;
+	border-radius: 5px;
+}
+.mab_checkbox input {
+	position: relative; z-index: 1;
+	width: 100%; height: 100%;
+	margin: 0;
+	opacity: 0;
+	cursor: pointer;
+}
+.mab_checkbox label {
+	position: absolute; top: 0; left: 0;
+	width: 100%; height: 100%;
+	display: flex; justify-content: center; align-items: center;
+	text-align: center;
+	border: 1px solid black; border-radius: inherit;
+	transition: all 0.3s ease;
+}
+.mab_checkbox input:checked + label {
+	color: white;
+	font-weight: bold;
+	background-color: black;
+}
+
+/* ========================================== */
+
+/* RADIO */
+
+.mab_radio {
+	position: relative;
+	display: grid; grid-template-columns: min-content auto; grid-gap: 10px;
+	justify-content: center; align-items: center;
+	margin: 0 5px;
+	cursor: pointer;
+}
+.mab_radio__label, .mab_radio__input {
+	display: flex; justify-content: center; align-items: center;
+}
+.mab_radio input {
+	position: absolute; z-index: -1;
+	width: max(1.5vw, 20px); height: max(1.5vw, 20px);
+	margin: 0;
+	opacity: 0;
+}
+.mab_radio__label {
+	line-height: 1;
+}
+.mab_radio__control {
+	width: max(1.5vw, 20px); height: max(1.5vw, 20px);
+	border: 1px solid black; border-radius: 50%;
+	transition: background 0.3s ease;
+}
+.mab_radio input:checked + .mab_radio__control {
+	background: black;
+	background-size: contain;
+	background-position: center;
+	border-color: transparent;
+}
+
+/* ========================================== */
+
+/* SWITCH */
+
+.mab_switch {
+	position: relative;
+	display: inline-block;
+	margin: 0 10px;
+	width: 60px; height: 30px;
+}
+.mab_switch input { display: none; }
+.mab_switch .mab_switch__slider {
+	position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+	cursor: pointer;
+	background-color: black;
+	transition: background-color .3s ease;
+	border-radius: 25px;
+}
+.mab_switch .mab_switch__slider::before {
+	position: absolute;left: 0; bottom: 0;
+	content: ' ';
+	width: 30px; height: 30px;
+	background-color: white;
+	transition: transform .3s ease;
+	border-radius: 50%;
+}
+.mab_switch input:checked + .mab_switch__slider {
+	background-color: black;
+}
+.mab_switch input:checked + .mab_switch__slider::before {
+	transform: translateX(100%);
+}
+
+/* ========================================== */
+
+/* ANIMATIONS */
+/* class name to activate: mab_animation */
+
+.slide_from_top		{ transform: translate(0%, -100px); transition: transform 1s ease-in; }
+.slide_from_right	{ transform: translate(100px, 0%); transition: transform 1s ease-in; }
+.slide_from_bottom	{ transform: translate(0%, 100px); transition: transform 1s ease-in; }
+.slide_from_left	{ transform: translate(-100px, 0%); transition: transform 1s ease-in; }
+
+.animated { will-change: transform; }
+.slide_from_top.animated	{ transform: translate(0%, 0%); }
+.slide_from_right.animated	{ transform: translate(0%, 0%); }
+.slide_from_bottom.animated	{ transform: translate(0%, 0%); }
+.slide_from_left.animated	{ transform: translate(0%, 0%); }
+
+.fade_in { opacity: 0; transition: opacity 3s; }
+.fade_in.animated { opacity: 1; }
+
+
+/* ANIMATIONS keyframes */
+
+@keyframes fade_in {
+	from { opacity: 0; }
+	to { opacity: 1; }
+}
+@keyframes fade_out {
+	from { opacity: 1; }
+	to { opacity: 0; }
+}
+
+@keyframes slide_from_top {
+	from { transform: translateY(-100px); }
+	to { transform: translateY(0); }
+}
+@keyframes slide_to_bottom {
+	from { transform: translateY(0); }
+	to { transform: translateY(100px); }
+}
+
+.bounce { animation: bounce 3s infinite; }
+@keyframes bounce {
+	0%		{ transform: translateY(0); }
+	50%		{ transform: translateY(10px); }
+	100%	{ transform: translateY(0); }
+}
+
+/* ========================================== */
+
+/* SLIDER */
+
+.mab_slider,
+.mab_slider .mab_slider__inner { width: 100%; height: 100%; position: relative; }
+.mab_slider .mab_slider__inner { cursor: pointer; z-index: -1; }
+/* .mab_slider.modal_wrapper { background: unset; box-sizing: content-box; } */
+.mab_slider .mab_slider__next,
+.mab_slider .mab_slider__prev {
+	position: absolute; top: 50%; right: 1%; z-index: 1;
+	transform: translateY(-50%);
+	cursor: pointer;
+	width: 30px; height: 30px;
+}
+.mab_slider__close {
+	position: absolute; top: 5%; right: 5%;
+	cursor: pointer;
+	width: 30px; height: 30px;
+}
+.mab_slider .mab_slider__prev { right: unset; left: 1%; }
+.mab_slider .mab_slider__inner * {
+	position: absolute; top: 0; left: 0; z-index: -1;
+	width: 100%; height: 100%;
+	opacity: 0;
+	transition: opacity 0.3s ease;
+	visibility: hidden;
+}
+.mab_slider .mab_slider__inner .active { opacity: 1; z-index: 1; visibility: unset; }
+
+/* ========================================== */
+
+/* LIGHTBOX */
+
+/* .mab_lightbox { cursor: pointer; }
+#mab_slider_lightbox.modal_wrapper { padding: 0; }
+#mab_lightbox_modal .slider_inner * {
+	cursor: initial;
+	padding: 0;
+	width: auto; height: auto;
+	max-width: 90%; max-height: 90%;
+	background: unset;
+	top: 50%; left: 50%; transform: translate(-50%, -50%);
+} */
