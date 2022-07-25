@@ -35,52 +35,82 @@
 </div>
 
 
-
-<!-- ---------- MODAL -->
-
-<span class="mab_modal__open" href="#modal_id"> open modal </span>
-<span class="mab_modal__open" href="pages/modal.php#modal_id"> open modal with ajax </span>
-
-<div id="modal_id" class="mab_modal" aria-hidden="true">
-	<div class="mab_modal__wrapper">
-		<div class="mab_modal__close"></div>
-	</div>
-</div>
-
-
 <!-- ---------- SCROLL -->
 
-<div class="mab_scroll" href="target" offset="value in pixel"> SCROLL </div>
+<div class="mab_scroll" data-href="target" data-offset="offset in pixel"></div>
 
 
 <!-- ---------- ANIMATION -->
 
-<div class="mab_animation"> ANIMATION </div>
+<div class="mab_animation"></div>
+
+	
+<!-- ---------- IMG_COMP -->
+
+<div class="mab_img_cmp">
+	<div class="mab_img_cmp__img" data-src="image"></div>
+	<div class="mab_img_cmp__img" data-src="image"></div>
+</div>
 
 
-<!-- ---------- SLIDER -->
+<!-- ---------- MODAL -->
 
-<div class="mab_slider" id="mab_slider">
-	<img class="mab_slider__next" src="images/next.png">
-	<img class="mab_slider__prev" src="images/prev.png">
-	<div class="mab_slider__inner">
-		<span class="active" style="background: url('img.jpg') no-repeat; background-size: contain; background-position: center;"></span>
-		<span style="background: url('img.jpg') no-repeat; background-size: contain; background-position: center;"></span>
+<span class="mab_modal__open" data-href="#modal_id"> open modal </span>
+<span class="mab_modal__open" data-href="pages/modal.php#modal_id"> open modal with ajax </span>
+
+<div id="modal_id" class="mab_modal" aria-hidden="true">
+	<div class="mab_modal__wrapper">
+		<span class="mab_modal__close"></span>
 	</div>
 </div>
 
 
 <!-- ---------- LIGHTBOX -->
 
-<img class="mab_lightbox" data-id="mab_lightbox" src="img.jpg">
+<img class="mab_lightbox" data-id="mab_lightbox" src="imgage" />
 
-	
-<!-- ---------- IMG_COMP -->
 
-<div class="mab_img_comp">
-	<div class="mab_img_comp__img mab_img_comp__overlay" style="background-image: url('images/img_test.jpg');"></div>
-	<div class="mab_img_comp__img" style="background-image: url('images/img_test.jpg');"></div>
+<!-- 
+	---------- SLIDER
+	fullscreen : <div class="mab_slider fullscreen">
+-->
+
+<div class="mab_slider" data-interval="interval in ms">
+	<span class="mab_slider__element" data-src="image"></span>
+	<span class="mab_slider__element" data-src="image"></span>
 </div>
 
+
+<!--
+	---------- SPLIDE
+	init splide's slider
+
+	window.splide.push(new Splide("#foo"));
+-->
+
+
+<div class="splide">
+	<div class="splide__track">
+		<ul class="splide__list">
+			<li class="splide__slide" style="background-image: url('image');"></li>
+			<li class="splide__slide" style="background-image: url('image');"></li>
+		</ul>
+	</div>
+</div>
+
+<!-- ---------- SPLIDE FULLSCREEN -->
+
+<div class="splide_container">
+	<div class="splide">
+		<div class="splide__track">
+			<ul class="splide__list">
+				<li class="splide__slide" style="background-image: url('image');"></li>
+				<li class="splide__slide" style="background-image: url('image');"></li>
+			</ul>
+		</div>
+	</div>
+	<div class="splide_open"></div>
+	<div class="splide_close"></div>
+</div>
 
 <!-- ========== END TEMPLATE -->

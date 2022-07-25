@@ -1,4 +1,4 @@
-const			set_height = (collapse : HTMLElement, content : HTMLElement) : void => {
+const		set_height = (collapse : HTMLElement, content : HTMLElement) : void => {
 	let	clone : HTMLElement | null;
 
 	collapse.classList.toggle("is_open");
@@ -8,9 +8,6 @@ const			set_height = (collapse : HTMLElement, content : HTMLElement) : void => {
 		clone.classList.add("clone");
 		clone.setAttribute("style", "position: absolute; opacity: 0; height: auto;");
 		collapse.prepend(clone);
-
-		console.log(collapse, clone);
-
 		if (clone) {
 			content.style.height = clone.getBoundingClientRect().height + "px";
 			clone.remove();
@@ -18,7 +15,7 @@ const			set_height = (collapse : HTMLElement, content : HTMLElement) : void => {
 	}
 };
 
-export const	mab_collapse = () : void => {
+const		mab_collapse = () : void => {
 	const	buttons : NodeListOf<HTMLElement> = document.querySelectorAll(".mab_collapse__button");
 
 	buttons.forEach((button : HTMLElement) : void => {
@@ -40,6 +37,4 @@ export const	mab_collapse = () : void => {
 };
 
 
-export default {
-	mab_collapse
-};
+export default mab_collapse;

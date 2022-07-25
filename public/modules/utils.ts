@@ -14,6 +14,4 @@ export const	scroll_to = (href : string, offset ?: number) : void => {
 };
 
 
-export default {
-	scroll_to
-};
+export default {};

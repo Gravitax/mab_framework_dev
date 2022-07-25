@@ -128,21 +128,19 @@ sup { font-size: 0.5em; top: -1em; }
 	width: 85%;
 	max-width: calc(100vw - 42px); max-height: calc(100vh - 42px);
 	position: relative;
-	background-color: #fff;
+	background-color: white;
 	padding: 42px;
 	overflow: auto;
 	cursor: initial;
 	animation: slide_to_bottom 0.5s both;
 	overscroll-behavior-y: contain;
 }
-.mab_modal__open { cursor: pointer; }
-.mab_modal__wrapper > .mab_modal__close {
+.mab_modal__open {cursor: pointer; }
+.mab_modal__close {
 	position: absolute; top: 15px; right: 15px; z-index: 10;
 	cursor: pointer;
 	width: 20px; height: 20px;
-	background: url("../images/close.png") no-repeat;
-	background-size: contain;
-	background-position: center;
+	background: url("../images/close.png") no-repeat center/contain;
 	transition: transform 0.4s ease;
 }
 .mab_modal[aria-hidden="false"] { animation: fade_in 0.5s both; }
@@ -208,9 +206,7 @@ sup { font-size: 0.5em; top: -1em; }
 	transition: background 0.3s ease;
 }
 .mab_radio input:checked + .mab_radio__control {
-	background: black;
-	background-size: contain;
-	background-position: center;
+	background: black center/contain;
 	border-color: transparent;
 }
 
@@ -299,11 +295,6 @@ sup { font-size: 0.5em; top: -1em; }
 /* SLIDER */
 
 .mab_slider { position: relative; }
-.mab_slider__inner {
-	position: relative; z-index: 1;
-	width: 100%; height: 100%;
-	cursor: pointer;
-}
 /* .mab_slider.modal_wrapper { background: unset; box-sizing: content-box; } */
 .mab_slider__next,
 .mab_slider__prev {
@@ -312,28 +303,46 @@ sup { font-size: 0.5em; top: -1em; }
 	cursor: pointer;
 	width: 30px; height: 30px;
 }
-.mab_slider__close {
-	position: absolute; top: 5%; right: 5%;
-	cursor: pointer;
-	width: 30px; height: 30px;
-}
+.mab_slider__next { background: url("../images/next.png") no-repeat center/contain; }
+.mab_slider__prev { background: url("../images/prev.png") no-repeat center/contain; }
+
 .mab_slider__prev { right: unset; left: 1%; }
-.mab_slider__inner * {
+.mab_slider__element {
 	position: absolute; top: 0; left: 0; z-index: -1;
 	width: 100%; height: 100%;
 	opacity: 0;
 	transition: opacity 0.3s ease;
 	visibility: hidden;
 }
-.mab_slider__inner .active { opacity: 1; z-index: 1; visibility: unset; }
+.mab_slider__element.active { opacity: 1; z-index: 1; visibility: unset; }
+
+/* FULLSCREEN */
+
+.mab_slider__fullscreen {
+	position: relative;
+	display: flex;
+}
+#mab_slider__fullscreen--modal .mab_slider,
+#mab_slider__fullscreen--modal .splide {
+	width: 100vw !important; height: 100vh !important;
+	background-color: white;
+}
+#mab_slider__fullscreen--modal .splide__pagination { transform: translate(-50%, -50%); }
+.mab_slider__open {
+	position: absolute; bottom: 15px; right: 15px; z-index: 10;
+	cursor: pointer;
+	width: 20px; height: 20px;
+	background: url("../images/fullscreen.png") no-repeat center/contain;
+	transition: transform 0.4s ease;
+}
 
 /* ========================================== */
 
 /* LIGHTBOX */
 
 .mab_lightbox { cursor: pointer; }
-#mab_slider_lightbox.mab_modal__wrapper { padding: 0; }
-#mab_lightbox_modal .mab_slider__element {
+#mab_slider_lightbox.mab_modal__wrapper { height: 85%; padding: 0; }
+#mab_lightbox--modal .mab_slider__element {
 	cursor: initial;
 	padding: 0;
 	max-width: 90%; max-height: 90%;
@@ -345,29 +354,25 @@ sup { font-size: 0.5em; top: -1em; }
 
 /* IMG_COMPARE */
 
-.mab_img_comp {
+.mab_img_cmp {
 	position: relative;
 	width: 50%;
-	/* aspect-ratio: 16 / 9; */
-	padding-top: calc(56.25% / 1.9);
+	aspect-ratio: 16 / 9;
 	margin: auto;
 }
-.mab_img_comp__img {
+.mab_img_cmp__img {
 	position: absolute; left: 0; top: 0; right: 0; bottom: 0;
 	width: 100%; height: 100%;
 	overflow: hidden;
-	background-size: cover !important;
-	background-repeat: no-repeat;
-	background-position: left;
 }
-.mab_img_comp__overlay { z-index: 1; }
-.mab_img_comp__slider {
-	position: absolute; z-index: 10;
+.mab_img_cmp__overlay { z-index: 1; border-right: 1px solid white; }
+.mab_img_cmp__slider {
+	position: absolute; top: 50%; z-index: 10;
 	cursor: ew-resize;
-	/*set the appearance of the slider:*/
-	width: 40px; height: 40px;
-	background: url("../images/slider.svg") no-repeat;
-	background-size: contain;
+	width: 42px; height: 42px;
+	transform: translateY(-50%);
+	background: white url("../images/slider.svg") no-repeat top/cover;
+	border-radius: 50%;
 }
 
 /* ========================================== */

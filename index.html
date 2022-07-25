@@ -2,6 +2,7 @@
 <html lang="fr">
 
 	<head>
+
 		<!-- META ---------- -->
 
 		<meta http-equiv="Content-Type" content="text/html" charset="utf-8" />
@@ -73,10 +74,35 @@
 				}
 			}
 		</script>
+
 	</head>
 	<body>
 
+		<div class="foo"></div>
+		<div class="mab_slider mab_slider--fullscreen" style="width: 500px; height: 420px;">
+			<span class="mab_slider__element mab_lightbox" data-id="foobar" data-src="public/images/next.png"></span>
+			<span class="mab_slider__element mab_lightbox" data-id="foobar" data-src="public/images/prev.png"></span>
+		</div>
+		<div class="foo"></div>
+		<div class="mab_slider__fullscreen">
+			<div class="mab_slider" style="width: 500px; height: 420px;">
+				<span class="mab_slider__element mab_lightbox" data-id="bar" data-src="public/images/next.png"></span>
+				<span class="mab_slider__element mab_lightbox" data-id="bar" data-src="public/images/prev.png"></span>
+			</div>
+		</div>
+		<div class="foo"></div>
+		<div id="foo" class="splide mab_slider--fullscreen" style="height: 500px;">
+			<div class="splide__track">
+				<ul class="splide__list">
+					<li class="splide__slide" style="background-image: url('public/images/next.png');"></li>
+					<li class="splide__slide" style="background-image: url('public/images/prev.png');"></li>
+				</ul>
+			</div>
+		</div>
+
 		<div id="app"></div>
+
+		<script type="module" src="/src/init.ts"></script>
 		<script type="module" src="/src/main.ts"></script>
 
 	</body>

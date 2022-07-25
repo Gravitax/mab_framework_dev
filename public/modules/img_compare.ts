@@ -1,81 +1,100 @@
-export function		img_compare() {
-	var	x, i;
+const		format_elements = (container : HTMLElement, width : number) : void => {
+	const	elements : NodeListOf<HTMLElement> = container.querySelectorAll(".mab_img_cmp__img");
+	
 
-	x = document.querySelectorAll(".mab_img_comp__overlay");
-	for (i = 0; i < x.length; i++)
-		compare(x[i]);
+	elements && elements.forEach((element : HTMLElement, i : number) : void => {
+		const	src : string | null = element.getAttribute("data-src");
 
-	function	compare(img) {
-		var slider, img, clicked = 0, w, h;
-
-		/*get the width and height of the img element*/
-		w = img.offsetWidth;
-		h = img.offsetHeight;
-		/*set the width of the img element to 50%:*/
-		img.style.width = (w / 2) + "px";
-		/*create slider:*/
-		slider = document.createElement("DIV");
-		slider.setAttribute("class", "mab_img_comp__slider");
-		/*insert slider*/
-		img.parentElement.insertBefore(slider, img);
-		/*position the slider in the middle:*/
-		slider.style.top = (h / 2) - (slider.offsetHeight / 2) + "px";
-		slider.style.left = (w / 2) - (slider.offsetWidth / 2) + "px";
-
-		/*execute a function when the mouse button is pressed:*/
-		slider.addEventListener("mousedown", slideReady, { passive: true, });
-		/*and another function when the mouse button is released:*/
-		window.addEventListener("mouseup", slideFinish, { passive: true, });
-		/*or touched (for touch screens:*/
-		slider.addEventListener("touchstart", slideReady, { passive: true, });
-		/*and released (for touch screens:*/
-		window.addEventListener("touchend", slideFinish, { passive: true, });
-
-		function	slideReady(e) {
-			/*prevent any other actions that may occur when moving over the image:*/
-			// e.preventDefault();
-			/*the slider is now clicked and ready to move:*/
-			clicked = 1;
-			/*execute a function when the slider is moved:*/
-			window.addEventListener("mousemove", slideMove);
-			window.addEventListener("touchmove", slideMove);
+		if (i === 0)
+			element.classList.add("mab_img_cmp__overlay");
+		if (src && width) {
+			element.setAttribute("style", `background: url("${src}") no-repeat left/${width.toString()}px;`);
 		}
-		function	slideFinish() {
-			clicked = 0;
-		}
-		function	slideMove(e) {
-			var	pos;
-					
-			if (clicked == 0)
-				return (false);
-			pos = getCursorPos(e)
-			/*prevent the slider from being positioned outside the image:*/
-			if (pos < 1) pos = 1;
-			if (pos > w - 1) pos = w - 1;
-			/*execute a function that will resize the overlay image according to the cursor:*/
-			slide(pos);
-		}
-		function	getCursorPos(e) {
-			var a, x = 0;
+	});
+};
 
-			e = e.changedTouches ? e.changedTouches[0] : e;
-			a = img.getBoundingClientRect();
-			/*calculate the cursor's x coordinate, relative to the image:*/
-			x = e.pageX - a.left;
-			/*consider any page scrolling:*/
-			x = x - window.pageXOffset;
-			return (x);
-		}
-		function	slide(x) {
-			/*resize the image:*/
-			img.style.width = x + "px";
-			/*position the slider:*/
-			slider.style.left = img.offsetWidth - (slider.offsetWidth / 2) + "px";
-		}
-	}
-}
+const		compare = (container : HTMLElement) : void => {
+	let		__click : boolean = false;
+	const	__width : number = container.offsetWidth;
+
+	format_elements(container, __width);
+
+	const	img : HTMLElement | null = container.querySelector(".mab_img_cmp__overlay");
+
+	if (!img || !img.parentElement)
+		return ;
+	/*set the width of the img element to 50%:*/
+	img.style.width = (__width / 2) + "px";
+
+	/*create slider:*/
+	const	slider : HTMLDivElement = document.createElement("div");
+
+	slider.setAttribute("class", "mab_img_cmp__slider");
+	/*insert slider*/
+	img.parentElement.insertBefore(slider, img);
+	/*position the slider in the middle:*/
+	slider.style.left = (__width / 2) - (slider.offsetWidth / 2) + "px";
+
+	const	slide_ready = () : void => {
+		/*the slider is now __click and ready to move:*/
+		__click = true;
+		/*execute a function when the slider is moved:*/
+		window.addEventListener("mousemove", slide_move);
+		window.addEventListener("touchmove", slide_move);
+	};
+	
+	const	slide_finish = () :void => {
+		__click = false;
+	};
+
+	const	get_cursor_pos = (e : any) : number => {
+		const	a : DOMRect = img.getBoundingClientRect();
+		let		x : number = 0;
+
+		e = e.changedTouches ? e.changedTouches[0] : e;
+		/*calculate the cursor's x coordinate, relative to the image:*/
+		x = e.pageX - a.left;
+		/*consider any page scrolling:*/
+		x = x - window.pageXOffset;
+		return (x);
+	};
+
+	const	slide = (x : number) : void => {
+		/*resize the image:*/
+		img.style.width = x + "px";
+		/*position the slider:*/
+		slider.style.left = img.offsetWidth - (slider.offsetWidth / 2) - 1 + "px";
+	};
+	
+	const	slide_move = (e : MouseEvent | TouchEvent) : void => {		
+		if (__click === false)
+			return ;
+		let	pos : number = get_cursor_pos(e);
+
+		/*prevent the slider from being positioned outside the image:*/
+		if (pos < 1) pos = 0;
+		if (pos > __width) pos = __width;
+		/*execute a function that will resize the overlay image according to the cursor:*/
+		slide(pos);
+	};
+
+	/*execute a function when the mouse button is pressed:*/
+	slider.addEventListener("mousedown", slide_ready, { passive : true });
+	/*and another function when the mouse button is released:*/
+	window.addEventListener("mouseup", slide_finish, { passive : true });
+	/*or touched (for touch screens:*/
+	slider.addEventListener("touchstart", slide_ready, { passive : true });
+	/*and released (for touch screens:*/
+	window.addEventListener("touchend", slide_finish, { passive : true });
+};
+
+const		mab_img_compare = () : void => {
+	const	elements : NodeListOf<HTMLElement> = document.querySelectorAll(".mab_img_cmp");
+
+	elements && elements.forEach((element : HTMLElement) : void => {
+		compare(element);
+	});
+};
 
 
-export default {
-	img_compare
-}
+export default mab_img_compare;

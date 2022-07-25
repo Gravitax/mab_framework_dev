@@ -3,13 +3,27 @@ export const	show_modal = (modal : HTMLElement) : void => {
 	modal.setAttribute("aria-hidden", "false");
 };
 
-export const	hidde_modal = (modal : HTMLElement) : void => {
-	const	mab_lightbox : NodeListOf<HTMLElement> = modal.querySelectorAll(".mab_slider__element");
+const			custom_hide = (modal : HTMLElement) : void => {
+	switch (modal.id) {
+		case "mab_lightbox--modal":
+			const	mab_lightbox : NodeListOf<HTMLElement> = modal.querySelectorAll(".mab_slider__element");
 
+			mab_lightbox && mab_lightbox.forEach((tmp) => tmp.remove());
+			break ;
+		case "mab_slider__fullscreen--modal":
+			let	content : HTMLElement | null = modal.querySelector(".mab_slider");
+
+			content && content.remove();
+			content = modal.querySelector(".splide");
+			content && content.remove();
+			break ;
+	}
+};
+
+export const	hide_modal = (modal : HTMLElement) : void => {
 	window.setTimeout(() : void => {
 		modal.style.display = "none";
-		if (mab_lightbox && modal.id == "mab_lightbox_modal")
-			mab_lightbox.forEach((tmp) => tmp.remove());
+		custom_hide(modal);
 	}, 500);
 	modal.setAttribute("aria-hidden", "true");
 };
@@ -37,7 +51,7 @@ export const	open_modal = async function (e : Event | null) : Promise<void> {
 	e.preventDefault();
 
 	const	target : HTMLElement = e.target as HTMLElement;
-	let		href : string | null = target && target.getAttribute("href");
+	let		href : string | null = target && target.getAttribute("data-href");
 	let		modal : HTMLElement;
 
 	if (href) {
@@ -46,36 +60,36 @@ export const	open_modal = async function (e : Event | null) : Promise<void> {
 		else {
 			modal = await load_modal(href) as HTMLElement;
 			href = "#" + href.split("#")[1];
-			target.setAttribute("href", href);
+			target.setAttribute("data-href", href);
 		}
 		if (modal) {
 			show_modal(modal);
 			const	closes : NodeListOf<HTMLElement> = document.querySelectorAll(`${href} .mab_modal__close`);
 
 			closes &&  closes.forEach((close : HTMLElement) : void => {
-				close.addEventListener("click", () : void => { hidde_modal(modal); });
+				close.addEventListener("click", () : void => { hide_modal(modal); });
 			});
 			modal.addEventListener("click", (e : Event) : void => {
 				if (e.target == modal)
-					hidde_modal(modal);
+					hide_modal(modal);
 			});
 		}
 	}
 };
 
-export const	mab_modal = () : void => {
+const			mab_modal = () : void => {
 	const	modals_open : NodeListOf<HTMLElement> = document.querySelectorAll(".mab_modal__open");
 
 	if (modals_open.length > 0) {
 		modals_open.forEach((open : HTMLElement) : void => {
-			open.addEventListener("click", open_modal)
+			open.addEventListener("click", open_modal);
 		});	
 		window.addEventListener("keydown", (e : KeyboardEvent) : void => {
 			if (e.key === "Escape" || e.key === "Esc") {
 				const	modals : NodeListOf<HTMLElement> = document.querySelectorAll(".mab_modal");
 		
 				modals && modals.forEach((modal : HTMLElement) : void => {
-					hidde_modal(modal);
+					hide_modal(modal);
 				});
 			}
 		});	
@@ -83,6 +97,4 @@ export const	mab_modal = () : void => {
 };
 
 
-export default	{
-	mab_modal
-};
+export default	mab_modal;
