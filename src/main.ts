@@ -1,5 +1,5 @@
 import mab, { ElementCollection } from "../public/modules/mab_jquery";
-import mount_framework from "../public/mount";
+import mount_framework from "../public/modules/mount";
 
 
 declare		global {
@@ -14,14 +14,14 @@ const		files_css : string[] = [
 	"style"
 ];
 
-const		load_splide = (head : ElementCollection, time : number) : void => {
+const		load_splide = (head : ElementCollection) : void => {
 	if (document.querySelector(".splide")) {
 		window.splide = [];
 		window.splide_tmp = [];
 		head.create_element({ append : true, tag : "link", props : {
 			"type"	: "text/css",
 			"rel"	: "stylesheet",
-			"href"	: `./public/css/splide.min.css?t=${time}`
+			"href"	: `./css/splide.min.css`
 		} });
 
 		import("@splidejs/splide").then((Module) : void => {
@@ -34,19 +34,18 @@ const		load_splide = (head : ElementCollection, time : number) : void => {
 
 const		init_framework = () : void => {
 	const	head : ElementCollection = mab("head");
-	const	time : number = new Date().getTime();
 
 	files_css.forEach((file : string) : void => {
 		head.create_element({ append : true, tag : "link", props : {
 			"type"	: "text/css",
 			"rel"	: "stylesheet",
-			"href"	: `./public/css/${file}.css?t=${time}`
+			"href"	: `./css/${file}.css}`
 		} });
 	});
 	
 	mab(document).ready(() => {
 
-		load_splide(head, time);
+		load_splide(head);
 		
 		setTimeout(() => {
 			mount_framework();

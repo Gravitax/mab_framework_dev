@@ -1,5 +1,5 @@
 {
-  "name": "tuto_ts",
+  "name": "mab_framwork",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -10,20 +10,17 @@
   },
   "devDependencies": {
     "@splidejs/splide": "^4.0.7",
-    "@vitejs/plugin-legacy": "^2.0.0",
-    "autoprefixer": "^10.4.7",
-    "postcss": "^8.4.14",
     "typescript": "^4.6.4",
     "vite": "^3.0.0"
   },
-  "description": "<!-- ========== TEMPLATE -->",
+  "description": "mab_framework",
   "main": "vite.config.js",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Gravitax/mab_framework.git"
   },
   "keywords": [],
-  "author": "",
+  "author": "maboye",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/Gravitax/mab_framework/issues"
