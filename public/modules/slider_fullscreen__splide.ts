@@ -7,9 +7,7 @@ const		create_list = (clone : HTMLElement) : HTMLUListElement => {
 	elements && elements.forEach((element : HTMLElement) : void => {
 		tmp = document.createElement("li");
 		tmp.className = "splide__slide";
-		// tmp.setAttribute("style", element.getAttribute("style") || "");
 		tmp.style.backgroundImage = element.style.backgroundImage;
-		tmp.style.width = "100%";
 		list.append(tmp);
 	});
 	return (list);

@@ -42,23 +42,30 @@ export const	move_previous = (slider : HTMLElement) : void => {
 };
 
 export const	set_navigation = (slider : HTMLElement) : void => {
-	let	element : HTMLSpanElement = document.createElement("span");
+	let	element : HTMLSpanElement | null;
 
-	element.className = "mab_slider__next";
+	element = slider.querySelector(".mab_slider__next");
+	if (!element) {
+		element = document.createElement("span");
+		element.className = "mab_slider__next";
+		slider.prepend(element);
+	}
 	element.addEventListener("click", (e : Event) : void => {
 		e.preventDefault();
 
 		move_next(slider);
 	});
-	slider.prepend(element);
-	element = document.createElement("span");
-	element.className = "mab_slider__prev";
+	element = slider.querySelector(".mab_slider__prev");
+	if (!element) {
+		element = document.createElement("span");
+		element.className = "mab_slider__prev";
+		slider.prepend(element);
+	}
 	element.addEventListener("click", (e : Event) : void => {
 		e.preventDefault();
 
 		move_previous(slider);
 	});
-	slider.prepend(element);
 };
 
 const			set_options = (slider : HTMLElement) : void => {

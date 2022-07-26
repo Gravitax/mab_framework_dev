@@ -1,51 +1,34 @@
 
+import Splide from "@splidejs/splide";
 
 import { show_modal, create_modal } from "./modal";
-import { move_next, move_previous, set_move_events } from "./slider";
-import splide_fullscreen from "./splide_fullscreen";
+import { set_move_events, set_navigation } from "./slider";
+import splide_fullscreen from "./slider_fullscreen__splide";
 
-import Splide from "./splide.min.js";
-
-
-const		set_navigation_events = (clone : HTMLElement) : void => {
-	let	tmp : HTMLElement | null = clone.querySelector(".mab_slider__next");
-
-	tmp && tmp.addEventListener("click", (e : Event) : void => {
-		e.preventDefault();
-	
-		move_next(clone);
-	});
-	tmp = clone.querySelector(".mab_slider__prev");
-	tmp && tmp.addEventListener("click", (e : Event) : void => {
-		e.preventDefault();
-
-		move_previous(clone);
-	});
-};
 
 const		handle_mab_slider = (clone : HTMLElement) : void => {
 	const	elements : NodeListOf<HTMLElement> = clone.querySelectorAll(".mab_slider__element");
 
-	set_navigation_events(clone);
+	set_navigation(clone);
 	elements && elements.forEach((element : HTMLElement) : void => {
 		set_move_events(clone, element);
 	});
 };
 
-const		mount_fullscreen = (slider : HTMLElement, modal : HTMLElement) : void => {
+const		mount_fullscreen = (modal : HTMLElement, slider : HTMLElement) : void => {
 	let		clone : HTMLElement = slider.cloneNode(true) as HTMLElement;
 	const	open : HTMLElement | null = clone.querySelector(".mab_slider__open");
 
-	const	splide : boolean = slider.classList.contains("splide");
-	
+	open && open.remove();	
 	clone.style.width = "100vw";
 	clone.style.height = "100vh";
-	open && open.remove();
-	if (slider.classList.contains("mab_slider"))
-		handle_mab_slider(clone);
+	const	splide : boolean = slider.classList.contains("splide");
+
 	if (splide)
 		clone = splide_fullscreen(clone);
-	if (clone && modal) {
+	else if (slider.classList.contains("mab_slider"))
+		handle_mab_slider(clone);
+	if (clone) {
 		modal.append(clone);
 		if (splide) {
 			window.splide_tmp[`#${clone.id}` as any] = new Splide(`#${clone.id}`);
@@ -64,7 +47,7 @@ const		init_fullscreen = (slider : HTMLElement) : void => {
 		e.preventDefault();
 
 		if (modal)
-			mount_fullscreen(slider, modal);
+			mount_fullscreen(modal, slider);
 		});
 	slider.prepend(element);
 };
