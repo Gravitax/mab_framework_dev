@@ -1,39 +1,50 @@
-import mab from "../public/modules/mab_jquery";
+import mab, { ElementCollection } from "../public/modules/mab_jquery";
 import mount_framework from "../public/mount";
 
 
-const		files_css = [
-	"normalize",
-	"style",
-	"splide.min"
-];
-
-const		files_js = [
-	"splide.min"
-];
-
 declare		global {
 	interface	Window {
-		splide : any[];
+		splide		: any[];
+		splide_tmp	: any[];
 	}
-}
+};
+
+const		files_css : string[] = [
+	"normalize",
+	"style"
+];
+
+const		load_splide = (head : ElementCollection, time : number) : void => {
+	if (document.querySelector(".splide")) {
+		window.splide = [];
+		window.splide_tmp = [];
+		head.create_element({ append : true, tag : "link", props : {
+			"type"	: "text/css",
+			"rel"	: "stylesheet",
+			"href"	: `./public/css/splide.min.css?t=${time}`
+		} }).create_element({ append : true, tag : "script", props : {
+			"type"	: "module",
+			"defer"	: "true",
+			"src"	: `./public/modules/splide.min.js?t=${time}`
+		} });
+	}
+};
 
 const		init_framework = () : void => {
-	const	horodatage : number = new Date().getTime();
-
-	window.splide = [];
+	const	head : ElementCollection = mab("head");
+	const	time : number = new Date().getTime();
 
 	files_css.forEach((file : string) : void => {
-		mab("head").create_element({ append : true, tag : "link",
-			props : { "type" : "text/css", "rel" : "stylesheet", "href" : `./public/css/${file}.css?h=${horodatage}` } });
-	});
-
-	files_js.forEach((file : string) : void => {
-		mab("head").create_element({ append : true, tag : "script",
-			props : { "type" : "module", "defer" : "true", "src" : `./public/modules/${file}.js?h=${horodatage}` } });
+		head.create_element({ append : true, tag : "link", props : {
+			"type"	: "text/css",
+			"rel"	: "stylesheet",
+			"href"	: `./public/css/${file}.css?t=${time}`
+		} });
 	});
 	
 	mab(document).ready(() => {
+
+		load_splide(head, time);
 		
 		setTimeout(() => {
 			mount_framework();

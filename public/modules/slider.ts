@@ -41,6 +41,36 @@ export const	move_previous = (slider : HTMLElement) : void => {
 	}
 };
 
+export const	set_navigation = (slider : HTMLElement) : void => {
+	let	element : HTMLSpanElement = document.createElement("span");
+
+	element.className = "mab_slider__next";
+	element.addEventListener("click", (e : Event) : void => {
+		e.preventDefault();
+
+		move_next(slider);
+	});
+	slider.prepend(element);
+	element = document.createElement("span");
+	element.className = "mab_slider__prev";
+	element.addEventListener("click", (e : Event) : void => {
+		e.preventDefault();
+
+		move_previous(slider);
+	});
+	slider.prepend(element);
+};
+
+const			set_options = (slider : HTMLElement) : void => {
+	let	interval : string | null = slider.getAttribute("data-interval");
+
+	if (interval) {
+		setInterval(() : void => {
+			move_next(slider);
+		}, parseInt(interval, 10));
+	}
+};
+
 export const	set_move_events = (slider : HTMLElement, element : HTMLElement) : void => {
 	let		x : number = 0;
 
@@ -71,34 +101,6 @@ export const	set_move_events = (slider : HTMLElement, element : HTMLElement) : v
 	}
 };
 
-const			set_navigation = (slider : HTMLElement) : void => {
-	let	element : HTMLSpanElement = document.createElement("span");
-
-	element.className = "mab_slider__next";
-	element.addEventListener("click", (e : Event) : void => {
-		e.preventDefault();
-		move_next(slider);
-	});
-	slider.prepend(element);
-	element = document.createElement("span");
-	element.className = "mab_slider__prev";
-	element.addEventListener("click", (e : Event) : void => {
-		e.preventDefault();
-		move_previous(slider);
-	});
-	slider.prepend(element);
-};
-
-const			set_options = (slider : HTMLElement) : void => {
-	let	interval : string | null = slider.getAttribute("data-interval");
-
-	if (interval) {
-		setInterval(() => {
-			move_next(slider);
-		}, parseInt(interval, 10));
-	}
-};
-
 const			format_elements = (slider : HTMLElement, elements : NodeListOf<HTMLElement>) : void => {
 	elements && elements.forEach((element : HTMLElement) : void => {
 		let	src : string | null = element.getAttribute("data-src");
@@ -118,10 +120,9 @@ const			mab_slider = () : void => {
 	
 	sliders && sliders.forEach((slider : HTMLElement) : void => {
 		format_elements(slider, slider.querySelectorAll(".mab_slider__element"));
-		let	first : HTMLElement | null = slider.querySelector(".mab_slider__element");
+		const	first : HTMLElement | null = slider.querySelector(".mab_slider__element");
 
-		if (first)
-			first.classList.add("active");
+		first && first.classList.add("active");
 		set_options(slider);
 		set_navigation(slider);
 	});

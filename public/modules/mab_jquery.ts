@@ -1,18 +1,20 @@
-class		ElementCollection extends Array {
+export class	ElementCollection extends Array {
 
-	ready(callback : Function) : void {
+	ready(callback : Function) : ElementCollection {
 		const   is_ready = this.some((e : Document) : boolean => {
 			return (e.readyState != null && e.readyState != "loading");
 		});
 	
 		is_ready ? callback() : document.addEventListener("DOMContentLoaded", callback as (e: Event) => void);
+		return (this);
 	}
 
-	on(event : string, callback : Function, options ?: { [key : string] : boolean }) : void {
+	on(event : string, callback : Function, options ?: { [key : string] : boolean }) : ElementCollection {
 		this.forEach((target) => target.addEventListener(event, callback, options));
+		return (this);
 	}
 	
-	addClass(classList : string | string[]) : void {
+	addClass(classList : string | string[]) : ElementCollection {
 		this.forEach((target : HTMLElement) : void => {
 			if (typeof(classList) === "string")
 				classList = classList.split(' ');
@@ -20,9 +22,10 @@ class		ElementCollection extends Array {
 				target.classList.add(className.trim());
 			});
 		});
+		return (this);
 	}
 	
-	removeClass(classList : string | string[]) : void {
+	removeClass(classList : string | string[]) : ElementCollection {
 		this.forEach((target : HTMLElement) : void => {
 			if (typeof(classList) === "string")
 				classList = classList.split(' ');
@@ -30,9 +33,10 @@ class		ElementCollection extends Array {
 				target.classList.remove(className.trim());
 			});
 		});
+		return (this);
 	}
 	
-	toggleClass(classList : string | string[]) : void {
+	toggleClass(classList : string | string[]) : ElementCollection {
 		this.forEach((target : HTMLElement) : void => {
 			if (typeof(classList) === "string")
 				classList = classList.split(' ');
@@ -40,30 +44,36 @@ class		ElementCollection extends Array {
 				target.classList.toggle(className.trim());
 			});
 		});
+		return (this);
 	}
 	
-	style({ ...property } : { [key : string] : string }) : void {
+	style({ ...property } : { [key : string] : string }) : ElementCollection {
 		this.forEach((target : HTMLElement) : void => {
 			for (const [key, value] of Object.entries(property)) {
 				target.style[key.trim() as any] = value.trim();
 			}
 		});
+		return (this);
 	}
 	
-	append(element : HTMLElement) : void {
+	append(element : HTMLElement) : ElementCollection {
 		this.forEach((target : HTMLElement) : void => target.append(element));
+		return (this);
 	}
 
-	prepend(element : HTMLElement) : void {
+	prepend(element : HTMLElement) : ElementCollection {
 		this.forEach((target : HTMLElement) : void => target.prepend(element));
+		return (this);
 	}
 	
-	after(element : HTMLElement) : void {
+	after(element : HTMLElement) : ElementCollection {
 		this.forEach((target : HTMLElement) : void => target.after(element));
+		return (this);
 	}
 	
-	before(element : HTMLElement) : void {
+	before(element : HTMLElement) : ElementCollection {
 		this.forEach((target : HTMLElement) : void => target.before(element));
+		return (this);
 	}
 	
 	create_element({ ...data } : {
@@ -76,9 +86,9 @@ class		ElementCollection extends Array {
 		after		?: boolean,
 		before		?: boolean,
 
-	}) : void {
+	}) : ElementCollection {
 		if (!data || !data.tag)
-			return ;
+			return (this);
 		if (!data.append && !data.prepend)
 			data.append = true;
 		this.forEach((target : HTMLElement) : void => {
@@ -96,47 +106,17 @@ class		ElementCollection extends Array {
 			if (data.after)		target.after(element);
 			if (data.before)	target.before(element);
 		});
+		return (this);
 	}
 }
 
-const		mab = (param : string | HTMLElement | Document) : ElementCollection => {
+const		mab = (param : Document | HTMLElement | string) : ElementCollection => {
 	if (typeof(param) === "string") {
 		return (new ElementCollection(...document.querySelectorAll(param) as any));
 	}
 	else {
 		return (new ElementCollection(param as any));
 	}
-};
-
-mab.ajax = ({ url, method, contentType, body = {}, success = () => {} } : {
-	url			: string,
-	method		: string,
-	contentType	: string,
-	body		: object,
-	success		: Function
-}) => {
-	const   queryString : string = Object.entries(body)
-		.map(([key, value]) => { return (`${key}=${value}`); })
-		.join('&');
-	const   fetch_params : object = method == "GET" ?
-		{ method, headers: { "Content-Type": contentType } } :
-		{ method, body, headers: { "Content-Type": contentType } };
-
-	url = method == "GET" ? `${url}?${queryString}` : url;
-	return (fetch(url, fetch_params)
-		.then((res : Response) => {
-			if (res.ok) {
-				// return (res.json());
-				return (res.text());
-			}
-			else {
-				throw (new Error(res.status.toString()));
-			}
-		})
-		.then((data) => {
-			success();
-			return (data);
-		}));
 };
 
 

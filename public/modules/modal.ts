@@ -3,51 +3,23 @@ export const	show_modal = (modal : HTMLElement) : void => {
 	modal.setAttribute("aria-hidden", "false");
 };
 
-const			custom_hide = (modal : HTMLElement) : void => {
-	switch (modal.id) {
-		case "mab_lightbox--modal":
-			const	mab_lightbox : NodeListOf<HTMLElement> = modal.querySelectorAll(".mab_slider__element");
-
-			mab_lightbox && mab_lightbox.forEach((tmp) => tmp.remove());
-			break ;
-		case "mab_slider__fullscreen--modal":
-			let	content : HTMLElement | null = modal.querySelector(".mab_slider");
-
-			content && content.remove();
-			content = modal.querySelector(".splide");
-			content && content.remove();
-			break ;
-	}
-};
-
-export const	hide_modal = (modal : HTMLElement) : void => {
-	window.setTimeout(() : void => {
-		modal.style.display = "none";
-		custom_hide(modal);
-	}, 500);
-	modal.setAttribute("aria-hidden", "true");
-};
-
 export const	load_modal = async function (url : string) : Promise<HTMLElement | null> {
 	const	target : string = "#" + url.split("#")[1];
 	const	html : string = await fetch(url)
 		.then((response : Response) : Promise<string> => response.text());
 	const	fragment : DocumentFragment = document.createRange().createContextualFragment(html);
-	let		modal : HTMLElement | null = null;
+	const	modal : HTMLElement | null = fragment.querySelector(target);
 	
-	if (fragment) {
-		modal = fragment.querySelector(target);
-		if (modal && modal.classList.contains("mab_modal")) {
-			if (!document.querySelector(target))
-				document.body.append(modal);
+	if (modal) {
+		if (modal.classList.contains("mab_modal") && !document.querySelector(target)) {
+			init_modal__close(modal);
+			document.body.append(modal);
 		}
 	}
 	return (modal);
 };
 
-export const	open_modal = async function (e : Event | null) : Promise<void> {
-	if (e == null) return ;
-	
+export const	open_modal = async function (e : Event) : Promise<void> {
 	e.preventDefault();
 
 	const	target : HTMLElement = e.target as HTMLElement;
@@ -62,22 +34,39 @@ export const	open_modal = async function (e : Event | null) : Promise<void> {
 			href = "#" + href.split("#")[1];
 			target.setAttribute("data-href", href);
 		}
-		if (modal) {
-			show_modal(modal);
-			const	closes : NodeListOf<HTMLElement> = document.querySelectorAll(`${href} .mab_modal__close`);
-
-			closes &&  closes.forEach((close : HTMLElement) : void => {
-				close.addEventListener("click", () : void => { hide_modal(modal); });
-			});
-			modal.addEventListener("click", (e : Event) : void => {
-				if (e.target == modal)
-					hide_modal(modal);
-			});
-		}
+		if (modal)
+			show_modal(modal)
 	}
 };
 
-const			mab_modal = () : void => {
+const			custom_hide = (modal : HTMLElement) : void => {
+	switch (modal.id) {
+		case "mab_lightbox--modal":
+			const	mab_lightbox : NodeListOf<HTMLElement> = modal.querySelectorAll(".mab_slider__element");
+
+			mab_lightbox && mab_lightbox.forEach((tmp) => tmp.remove());
+			break ;
+		case "mab_slider__fullscreen--modal":
+			let	content : HTMLElement | null = modal.querySelector(".mab_slider");
+
+			content && content.remove();
+			content = modal.querySelector(".splide");
+			for (const key of Object.keys(window.splide_tmp))
+				window.splide_tmp[key as any].destroy("completely");
+			content && content.remove();
+			break ;
+	}
+};
+
+export const	hide_modal = (modal : HTMLElement) : void => {
+	window.setTimeout(() : void => {
+		modal.style.display = "none";
+		custom_hide(modal);
+	}, 500);
+	modal.setAttribute("aria-hidden", "true");
+};
+
+const			init_modal__open = () : void => {
 	const	modals_open : NodeListOf<HTMLElement> = document.querySelectorAll(".mab_modal__open");
 
 	if (modals_open.length > 0) {
@@ -93,7 +82,45 @@ const			mab_modal = () : void => {
 				});
 			}
 		});	
-	} 
+	}
+};
+
+export const	init_modal__close = (modal : HTMLElement) : void => {
+	const	element : HTMLSpanElement = document.createElement("span");
+
+	element.className = "mab_modal__close";
+	element.addEventListener("click", (e : Event) : void => {
+		e.preventDefault();
+	
+		hide_modal(modal);
+	});
+	modal.prepend(element);
+	modal.addEventListener("click", (e : Event) : void => {
+		e.preventDefault();
+
+		if (e.target == modal)
+			hide_modal(modal);
+	});
+};
+
+export const	create_modal = (id : string) : HTMLElement => {
+	const	modal : HTMLDivElement = document.createElement("div");
+
+	modal.id = id;
+	modal.className = "mab_modal";
+	modal.setAttribute("aria-hidden", "true");
+	init_modal__close(modal);
+	document.body.append(modal);
+	return (modal);
+};
+
+const			mab_modal = () : void => {
+	const	modals : NodeListOf<HTMLElement> = document.querySelectorAll(".mab_modal");
+
+	modals && modals.forEach((modal : HTMLElement) : void => {
+		init_modal__close(modal);
+	});
+	init_modal__open();
 };
 
 

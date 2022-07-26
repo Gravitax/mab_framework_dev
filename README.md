@@ -56,12 +56,10 @@
 <!-- ---------- MODAL -->
 
 <span class="mab_modal__open" data-href="#modal_id"> open modal </span>
-<span class="mab_modal__open" data-href="pages/modal.php#modal_id"> open modal with ajax </span>
+<span class="mab_modal__open" data-href="pages/modals.html#modal_id"> open modal with ajax </span>
 
 <div id="modal_id" class="mab_modal" aria-hidden="true">
-	<div class="mab_modal__wrapper">
-		<span class="mab_modal__close"></span>
-	</div>
+	<div class="mab_modal__wrapper"></div>
 </div>
 
 
@@ -72,7 +70,7 @@
 
 <!-- 
 	---------- SLIDER
-	fullscreen : <div class="mab_slider fullscreen">
+		- fullscreen : <div class="mab_slider mab_slider--fullscreen">
 -->
 
 <div class="mab_slider" data-interval="interval in ms">
@@ -83,11 +81,9 @@
 
 <!--
 	---------- SPLIDE
-	init splide's slider
-
-	window.splide.push(new Splide("#foo"));
+		- init splide's slider : window.splide[selector](new Splide(selector));
+		- fullscreen : <div class="splide mab_slider--fullscreen">
 -->
-
 
 <div class="splide">
 	<div class="splide__track">
@@ -96,21 +92,6 @@
 			<li class="splide__slide" style="background-image: url('image');"></li>
 		</ul>
 	</div>
-</div>
-
-<!-- ---------- SPLIDE FULLSCREEN -->
-
-<div class="splide_container">
-	<div class="splide">
-		<div class="splide__track">
-			<ul class="splide__list">
-				<li class="splide__slide" style="background-image: url('image');"></li>
-				<li class="splide__slide" style="background-image: url('image');"></li>
-			</ul>
-		</div>
-	</div>
-	<div class="splide_open"></div>
-	<div class="splide_close"></div>
 </div>
 
 <!-- ========== END TEMPLATE -->

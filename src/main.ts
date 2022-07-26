@@ -13,6 +13,6 @@ mab(document).ready(() => {
 		"height" : "5vh"
 	});
 
-	window.splide.push(new Splide("#foo"));
+	window.splide["#foo" as any] = new Splide("#foo");
 	
 });

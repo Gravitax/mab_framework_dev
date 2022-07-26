@@ -1,15 +1,13 @@
 const		format_elements = (container : HTMLElement, width : number) : void => {
 	const	elements : NodeListOf<HTMLElement> = container.querySelectorAll(".mab_img_cmp__img");
-	
 
 	elements && elements.forEach((element : HTMLElement, i : number) : void => {
 		const	src : string | null = element.getAttribute("data-src");
 
 		if (i === 0)
 			element.classList.add("mab_img_cmp__overlay");
-		if (src && width) {
+		if (src && width)
 			element.setAttribute("style", `background: url("${src}") no-repeat left/${width.toString()}px;`);
-		}
 	});
 };
 
@@ -20,25 +18,18 @@ const		compare = (container : HTMLElement) : void => {
 	format_elements(container, __width);
 
 	const	img : HTMLElement | null = container.querySelector(".mab_img_cmp__overlay");
+	const	slider : HTMLDivElement = document.createElement("div");
 
 	if (!img || !img.parentElement)
 		return ;
-	/*set the width of the img element to 50%:*/
 	img.style.width = (__width / 2) + "px";
-
-	/*create slider:*/
-	const	slider : HTMLDivElement = document.createElement("div");
-
 	slider.setAttribute("class", "mab_img_cmp__slider");
-	/*insert slider*/
 	img.parentElement.insertBefore(slider, img);
 	/*position the slider in the middle:*/
 	slider.style.left = (__width / 2) - (slider.offsetWidth / 2) + "px";
 
 	const	slide_ready = () : void => {
-		/*the slider is now __click and ready to move:*/
 		__click = true;
-		/*execute a function when the slider is moved:*/
 		window.addEventListener("mousemove", slide_move);
 		window.addEventListener("touchmove", slide_move);
 	};

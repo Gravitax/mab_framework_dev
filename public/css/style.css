@@ -324,7 +324,7 @@ sup { font-size: 0.5em; top: -1em; }
 }
 #mab_slider__fullscreen--modal .mab_slider,
 #mab_slider__fullscreen--modal .splide {
-	width: 100vw !important; height: 100vh !important;
+	width: 100vw; height: 100vh;
 	background-color: white;
 }
 #mab_slider__fullscreen--modal .splide__pagination { transform: translate(-50%, -50%); }
