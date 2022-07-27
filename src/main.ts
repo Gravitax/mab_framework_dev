@@ -21,7 +21,7 @@ const		load_splide = (head : ElementCollection) : void => {
 		head.create_element({ append : true, tag : "link", props : {
 			"type"	: "text/css",
 			"rel"	: "stylesheet",
-			"href"	: `./css/splide.min.css`
+			"href"	: `./public/css/splide.min.css`
 		} });
 
 		import("@splidejs/splide").then((Module) : void => {
@@ -39,7 +39,7 @@ const		init_framework = () : void => {
 		head.create_element({ append : true, tag : "link", props : {
 			"type"	: "text/css",
 			"rel"	: "stylesheet",
-			"href"	: `./css/${file}.css}`
+			"href"	: `./public/css/${file}.css`
 		} });
 	});
 	

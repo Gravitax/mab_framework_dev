@@ -35,7 +35,14 @@
 </div>
 
 
-<!-- ---------- SCROLL -->
+<!--
+	---------- SCROLL
+		- offset : desktop(px|vw) / mobile(px|vw) : breakpoint
+			ex :
+				- data-offset="10vw"		(only desktop)
+				- data-offset="60:1920" 	(only breakpoint)
+				- data-offset="10/60:1920"	(both)
+-->
 
 <div class="mab_scroll" data-href="target" data-offset="offset in pixel"></div>
 
@@ -81,7 +88,9 @@
 
 <!--
 	---------- SPLIDE
-		- init splide's slider : window.splide[selector](new Splide(selector));
+		- init splide's slider :
+			window.splide = {};
+			window.splide[selector] = new Splide(selector);
 		- fullscreen : <div class="splide mab_slider--fullscreen">
 -->
 

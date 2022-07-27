@@ -5,8 +5,11 @@ const		create_list = (clone : HTMLElement) : HTMLUListElement => {
 
 	list.className = "splide__list";
 	elements && elements.forEach((element : HTMLElement) : void => {
+		if (element.classList.contains("splide__slide--clone"))
+			return ;
 		tmp = document.createElement("li");
 		tmp.className = "splide__slide";
+		tmp.style.background = element.style.background;
 		tmp.style.backgroundImage = element.style.backgroundImage;
 		list.append(tmp);
 	});
