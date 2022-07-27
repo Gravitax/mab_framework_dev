@@ -1,29 +1,40 @@
 {
-  "name": "mab_framwork",
-  "private": true,
-  "version": "0.0.0",
-  "type": "module",
-  "scripts": {
-    "dev": "vite",
-    "build": "tsc && vite build",
-    "preview": "vite preview"
-  },
-  "devDependencies": {
-    "@splidejs/splide": "^4.0.7",
-    "typescript": "^4.6.4",
-    "vite": "^3.0.0"
-  },
-  "description": "mab_framework",
-  "main": "vite.config.js",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Gravitax/mab_framework.git"
-  },
-  "keywords": [],
-  "author": "maboye",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/Gravitax/mab_framework/issues"
-  },
-  "homepage": "https://github.com/Gravitax/mab_framework#readme"
+	"name": "mab_framwork",
+	"private": true,
+	"version": "0.0.0",
+	"type": "module",
+	"scripts": {
+		"dev": "vite",
+		"pcss--style": "./node_modules/.bin/postcss -u autoprefixer -u postcss-minify -o public/css/style.min.css public/css/style.css",
+		"pcss--splide": "./node_modules/.bin/postcss -u autoprefixer -u postcss-minify -o public/css/splide.min.css public/css/splide.css",
+		"pcss": "npm run pcss--style && npm run pcss--splide",
+		"build": "tsc && npm run pcss && vite build",
+		"preview": "vite preview"
+	},
+	"devDependencies": {
+		"@splidejs/splide": "^4.0.7",
+		"autoprefixer": "^10.4.7",
+		"postcss": "^8.4.14",
+		"postcss-cli": "^10.0.0",
+		"postcss-cli-simple": "^4.0.0",
+		"postcss-minify": "^1.1.0",
+		"typescript": "^4.6.4",
+		"vite": "^3.0.0"
+	},
+	"description": "mab_framework",
+	"main": "vite.config.js",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/Gravitax/mab_framework.git"
+	},
+	"keywords": [],
+	"author": "maboye",
+	"license": "ISC",
+	"bugs": {
+		"url": "https://github.com/Gravitax/mab_framework/issues"
+	},
+	"homepage": "https://github.com/Gravitax/mab_framework#readme",
+	"browserslist": [
+		"> 0.2%"
+	]
 }

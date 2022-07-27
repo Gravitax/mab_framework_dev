@@ -31,8 +31,8 @@ const		mount_fullscreen = (modal : HTMLElement, slider : HTMLElement) : void => 
 	if (clone) {
 		modal.append(clone);
 		if (splide) {
-			window.splide_tmp[`#${clone.id}` as any] = new Splide(`#${clone.id}`);
-			window.splide_tmp[`#${clone.id}` as any].mount();
+			window.splide_tmp[`#${clone.id}`] = new Splide(`#${clone.id}`);
+			window.splide_tmp[`#${clone.id}`].mount();
 		}
 		show_modal(modal);
 	}

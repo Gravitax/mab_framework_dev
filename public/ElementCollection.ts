@@ -1,4 +1,4 @@
-export class	ElementCollection extends Array {
+class		ElementCollection extends Array {
 
 	ready(callback : Function) : ElementCollection {
 		const   is_ready = this.some((e : Document) : boolean => {
@@ -108,16 +108,8 @@ export class	ElementCollection extends Array {
 		});
 		return (this);
 	}
+
 }
 
-const		mab = (param : Document | HTMLElement | string) : ElementCollection => {
-	if (typeof(param) === "string") {
-		return (new ElementCollection(...document.querySelectorAll(param) as any));
-	}
-	else {
-		return (new ElementCollection(param as any));
-	}
-};
 
-
-export default	mab;
+export default ElementCollection;

@@ -88,9 +88,7 @@
 
 <!--
 	---------- SPLIDE
-		- init splide's slider :
-			window.splide = {};
-			window.splide[selector] = new Splide(selector);
+		- init splide's slider : window.splide[id] = new Splide(id);
 		- fullscreen : <div class="splide mab_slider--fullscreen">
 -->
 

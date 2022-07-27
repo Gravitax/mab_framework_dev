@@ -47,12 +47,12 @@ const			custom_hide = (modal : HTMLElement) : void => {
 			mab_lightbox && mab_lightbox.forEach((tmp) => tmp.remove());
 			break ;
 		case "mab_slider__fullscreen--modal":
-			let	content : HTMLElement | null = modal.querySelector(".mab_slider");
+			let		content : HTMLElement | null = modal.querySelector(".mab_slider");
 
 			content && content.remove();
 			content = modal.querySelector(".splide");
 			for (const key of Object.keys(window.splide_tmp))
-				window.splide_tmp[key as any].destroy("completely");
+				window.splide_tmp[key].destroy("completely");
 			content && content.remove();
 			break ;
 	}

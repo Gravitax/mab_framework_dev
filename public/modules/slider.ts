@@ -88,7 +88,7 @@ export const	set_move_events = (slider : HTMLElement, element : HTMLElement) : v
 		element.addEventListener("mouseup", (e : MouseEvent) : void => {
 			let	dist = e.clientX - x;
 
-			if (dist * dist > 100)
+			if (dist * dist > 101)
 				dist < 0 ? move_next(slider) : move_previous(slider);
 		}, { passive : true });
 	}
@@ -102,7 +102,7 @@ export const	set_move_events = (slider : HTMLElement, element : HTMLElement) : v
 
 			let	dist = e.clientX - x;
 
-			if (dist * dist > 200)
+			if (dist * dist > 101)
 				dist < 0 ? move_next(slider) : move_previous(slider);
 		}, { passive : true });
 	}

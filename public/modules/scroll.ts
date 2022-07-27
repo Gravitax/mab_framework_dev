@@ -1,26 +1,12 @@
-import { scroll_to } from "./utils";
+import { scroll_to, vw } from "./utils";
 
 
-const		vw = (v : number) : number => {
-	const	w : number = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
-
-	return ((v * w) / 100);
-};
-
-const		get_offset = (str : string | null) : number => {
+const		parse_offset = (str : string | null, breakpoint : number, only_mobile : boolean) : number => {
 	let		offset : number = 0;
-	let		breakpoint : number = 1024;
-	let		only_mobile : boolean = false;
-	let		split : string[];
 
-	if (str && str.indexOf(':') > -1) {
-		split = str.split(':');
-		breakpoint = parseInt(split[1], 10);
-		only_mobile = true;
-		str = split[0];
-	}
 	if (str && str.indexOf('/') > -1) {
-		split = str.split('/');
+		const	split : string[] = str.split('/');
+
 		if (breakpoint && window.innerWidth > breakpoint) // desktop
 			offset = split[0].indexOf("vw") > -1 ? vw(parseInt(split[0], 10)) : parseInt(split[0], 10); // gauche
 		else // mobile
@@ -32,7 +18,21 @@ const		get_offset = (str : string | null) : number => {
 		} else
 			offset = str.indexOf("vw") > -1 ? vw(parseInt(str, 10)) : parseInt(str, 10);
 	}
-	return (offset > 0 ? offset * -1 : offset);
+	return (offset);
+}
+
+const		get_offset = (offset : string | null) : number => {
+	let		breakpoint : number = 1024;
+	let		only_mobile : boolean = false;
+
+	if (offset && offset.indexOf(':') > -1) {
+		const	split : string[] = offset.split(':');
+
+		breakpoint = parseInt(split[1], 10);
+		only_mobile = true;
+		offset = split[0];
+	}
+	return (parse_offset(offset, breakpoint, only_mobile));
 }
 
 const		mab_scroll = () : void => {
