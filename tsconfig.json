@@ -13,8 +13,7 @@
 		"noUnusedParameters": true,
 		"noImplicitReturns": true,
 		"skipLibCheck": true,
-		"outDir": "js",
-		"sourceMap": true
+		"outDir": "js"
 	},
 	"include": ["src", "public", "public/modules"]
 }

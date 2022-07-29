@@ -1,3 +1,6 @@
+import Splide from "@splidejs/splide";
+
+
 const		create_list = (clone : HTMLElement) : HTMLUListElement => {
 	const	list : HTMLUListElement = document.createElement("ul");
 	const	elements : NodeListOf<HTMLElement> = clone.querySelectorAll(".splide__slide");
@@ -16,7 +19,7 @@ const		create_list = (clone : HTMLElement) : HTMLUListElement => {
 	return (list);
 };
 
-const		splide_fullscreen = (clone : HTMLElement) : HTMLElement => {
+const		slider_fullscreen__splide = (modal : HTMLElement, clone : HTMLElement) : void => {
 	const	slider : HTMLElement = document.createElement("div");
 	const	track : HTMLElement = document.createElement("div");
 
@@ -29,8 +32,10 @@ const		splide_fullscreen = (clone : HTMLElement) : HTMLElement => {
 
 	track.append(list);
 	slider.append(track);
-	return (slider);
+	modal.append(slider);
+	window.splide_tmp[`#${slider.id}`] = new Splide(`#${slider.id}`, { type : "loop" });
+	window.splide_tmp[`#${slider.id}`].mount();
 };
 
 
-export default splide_fullscreen;
+export default slider_fullscreen__splide;

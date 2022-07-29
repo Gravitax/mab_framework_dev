@@ -21,7 +21,7 @@ const			load_splide = (head : ElementCollection) : void => {
 		head.create_element({ append : true, tag : "link", props : {
 			"type"	: "text/css",
 			"rel"	: "stylesheet",
-			"href"	: `./public/css/splide.min.css`
+			"href"	: `./public/css/splide.css`
 		} });
 	}
 };
@@ -32,7 +32,7 @@ mab.init = () : void => {
 	head.create_element({ append : true, tag : "link", props : {
 		"type"	: "text/css",
 		"rel"	: "stylesheet",
-		"href"	: `./public/css/style.min.css`
+		"href"	: `./public/css/style.css`
 	} });
 	load_splide(head);
 	mab(document).ready(() => {
