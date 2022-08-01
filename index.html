@@ -1,21 +1,35 @@
 <!DOCTYPE html>
 <html lang="fr">
 
-	<head></head>
+	<head>
+
+		<style>
+			.mab_sticky {
+				position: absolute; top: 0; left: 0;
+			}
+		</style>
+
+	</head>
 
 	<body>
-
-		<div class="foo mab_scroll" data-href="#foo" data-offset="100/0:800">lorem ipsum</div>
+		<div class="mab_scroll" data-href="#foo" data-offset="100/0:800">lorem ipsum</div>
 		<div class="mab_img_cmp">
 			<div class="mab_img_cmp__img" data-src="public/css/images/next.png"></div>
 			<div class="mab_img_cmp__img" data-src="public/css/images/prev.png"></div>
 		</div>
-		<div class="foo"></div>
+		<div style="height: 25vh; background: red;"></div>
+		<div style="height: 25vh; background: green; position: relative;">
+			<div class="mab_sticky" data-stop="#tata" data-offset="4vw">
+				lorem ipsum <br />
+				lorem ipsum <br />
+				lorem ipsum <br />
+			</div>
+		</div>
 		<div class="mab_slider" style="width: 500px; height: 420px;">
 			<span class="mab_slider__element mab_lightbox" data-id="bar" data-src="public/css/images/next.png"></span>
 			<span class="mab_slider__element mab_lightbox" data-id="bar" data-src="public/css/images/prev.png"></span>
 		</div>
-		<div class="foo"></div>
+		<div id="tata" style="height: 50vh; background: green;"></div>
 		<div id="foo" class="splide mab_slider--fullscreen" style="height: 500px;">
 			<div class="splide__track">
 				<ul class="splide__list">
@@ -24,6 +38,7 @@
 				</ul>
 			</div>
 		</div>
+		<div style="height: 50vh; background: red;"></div>
 
 		<script type="module" src="/src/main.ts"></script>
 

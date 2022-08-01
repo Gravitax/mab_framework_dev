@@ -442,6 +442,12 @@ sup { font-size: 0.5em; top: -1em; }
 
 /* ========================================== */
 
+/* SCROLL */
+
+.mab_sticky { will-change: top; }
+
+/* ========================================== */
+
 /* COLLAPSE */
 
 .mab_collapse__button { cursor: pointer; }
@@ -524,7 +530,7 @@ sup { font-size: 0.5em; top: -1em; }
 .mab_radio {
 	position: relative;
 	display: grid; grid-template-columns: min-content auto; grid-gap: 10px;
-	justify-content: center; align-items: center;
+	justify-content: center; align-items: flex-start;
 	margin: 0 5px;
 	cursor: pointer;
 }

@@ -15,6 +15,8 @@ const		mount_framework = () : void => {
 		import("./modules/slider").then((Module) : void => Module.default());
 	if (document.querySelector(".mab_slider--fullscreen"))
 		import("./modules/slider_fullscreen").then((Module) : void => Module.default());
+	if (document.querySelector(".mab_sticky"))
+		import("./modules/sticky").then((Module) : void => Module.default());
 	if (document.querySelector(".splide")) {
 		for (const key of Object.keys(window.splide))
 			window.splide[key].mount();
