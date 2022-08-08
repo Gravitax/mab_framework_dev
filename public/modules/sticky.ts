@@ -10,10 +10,12 @@ const			set_top = (element : HTMLElement, stop_element : HTMLElement, offset : n
 	const	height : number = element.getBoundingClientRect().height;
 	const	diff : number = top - height;
 
+	if (diff < (height + 101) * -1)
+		return ;
 	if (diff - offset < 0)
-		element.setAttribute("style", `position: fixed; top: ${diff}px;`)
+		element.setAttribute("style", `position: fixed; top: ${diff}px;`);
 	else
-		element.style.top = `${0 + offset}px`;
+		element.style.top = `${offset}px`;
 };
 
 const			set_sticky = (element : HTMLElement, stop_selector : string | null, offset : number) : void => {
@@ -28,8 +30,10 @@ const			set_sticky = (element : HTMLElement, stop_selector : string | null, offs
 	const	mab_sticky_scroll = () : void => {
 		pos_cursor = window.pageYOffset;
 		if (element_top - pos_cursor < 0) {
-			element.classList.add("active");
-			element.setAttribute("style", `position: fixed; top: ${0 + offset}px;`)
+			if (!element.classList.contains("active")) {
+				element.classList.add("active");
+				element.setAttribute("style", `position: fixed; top: ${offset}px;`);
+			}
 		}
 		else {
 			element.classList.remove("active");

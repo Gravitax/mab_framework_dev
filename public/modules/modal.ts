@@ -81,7 +81,7 @@ const			init_modal__open = () : void => {
 					hide_modal(modal);
 				});
 			}
-		});	
+		});
 	}
 };
 

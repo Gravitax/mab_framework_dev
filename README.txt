@@ -117,3 +117,8 @@
 		</ul>
 	</div>
 </div>
+
+
+<!-- ---------- COMPLETION	-->
+
+<input class="mab_completion" data-href="https://tech.agence-markus.com/librairies/getCity.php?term=" />

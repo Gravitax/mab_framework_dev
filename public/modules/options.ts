@@ -1,3 +1,4 @@
+import { __is_mobile } from "../mab";
 import { vw } from "./utils";
 
 
@@ -22,21 +23,21 @@ const			parse_offset = (str : string | null, breakpoint : number, only_mobile : 
 		const	split : string[] = str.split('/');
 
 		if (breakpoint && window.innerWidth > breakpoint) // desktop
-			offset = split[0].indexOf("vw") > -1 ? vw(parseInt(split[0], 10)) : parseInt(split[0], 10); // gauche
+			offset = split[0].indexOf("vw") > -1 ? vw(parseFloat(split[0])) : parseFloat(split[0]); // gauche
 		else // mobile
-			offset = split[1].indexOf("vw") > -1 ? vw(parseInt(split[1], 10)) : parseInt(split[1], 10); // droite
+			offset = split[1].indexOf("vw") > -1 ? vw(parseFloat(split[1])) : parseFloat(split[1]); // droite
 	} else if (str) {
 		if (only_mobile) {
 			if (window.innerWidth < breakpoint) // mobile
-				offset = str.indexOf("vw") > -1 ? vw(parseInt(str, 10)) : parseInt(str, 10);
+				offset = str.indexOf("vw") > -1 ? vw(parseFloat(str)) : parseFloat(str);
 		} else
-			offset = str.indexOf("vw") > -1 ? vw(parseInt(str, 10)) : parseInt(str, 10);
+			offset = str.indexOf("vw") > -1 ? vw(parseFloat(str)) : parseFloat(str);
 	}
 	return (offset);
 }
 
 export const	get_offset = (str : string | null) : number => {
-	let		breakpoint : number = 1024;
+	let		breakpoint : number = __is_mobile[0];
 	let		only_mobile : boolean = false;
 
 	if (str && str.indexOf(':') > -1) {

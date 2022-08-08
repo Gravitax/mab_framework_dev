@@ -1,3 +1,6 @@
+import { __is_mobile } from "../mab";
+
+
 const			is_image = (element : Element) : boolean => {
 	return (!element.classList.contains("mab_slider__next")
 		&& !element.classList.contains("mab_slider__prev")
@@ -81,25 +84,25 @@ const			set_options = (slider : HTMLElement) : void => {
 export const	set_move_events = (slider : HTMLElement, element : HTMLElement) : void => {
 	let		x : number = 0;
 
-	if (window.innerWidth > 800) {
-		element.addEventListener("mousedown", (e : MouseEvent) : void => {
-			x = e.clientX;
-		}, { passive : true });
-		element.addEventListener("mouseup", (e : MouseEvent) : void => {
-			let	dist = e.clientX - x;
-
-			if (dist * dist > 101)
-				dist < 0 ? move_next(slider) : move_previous(slider);
-		}, { passive : true });
-	}
-	else {
+	if (__is_mobile[1]) {
 		element.addEventListener("touchstart", (e : any) : void => {
 			e = e.changedTouches ? e.changedTouches[0] : e;
 			x = e.clientX;
 		}, { passive : true });
 		element.addEventListener("touchend", (e : any) : void => {
 			e = e.changedTouches ? e.changedTouches[0] : e;
-
+	
+			let	dist = e.clientX - x;
+	
+			if (dist * dist > 101)
+				dist < 0 ? move_next(slider) : move_previous(slider);
+		}, { passive : true });
+	}
+	else {
+		element.addEventListener("mousedown", (e : MouseEvent) : void => {
+			x = e.clientX;
+		}, { passive : true });
+		element.addEventListener("mouseup", (e : MouseEvent) : void => {
 			let	dist = e.clientX - x;
 
 			if (dist * dist > 101)

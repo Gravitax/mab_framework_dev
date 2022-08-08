@@ -399,12 +399,12 @@ h1, h2, h3, h4, h5, p { margin-top: 0; }
 
 .fsize_vbig { font-size: clamp(28px, 3vw, 58px); line-height: 1.5em; }
 .fsize_big { font-size: clamp(24px, 2.4vw, 46px); line-height: 1.5em; }
-.fsize_vlg { font-size: clamp(21px, 1.9vw, 36px); line-height: 1.5em; }
-.fsize_lg { font-size: clamp(18px, 1.5vw, 28px); line-height: 1.25em }
-.fsize_vmd { font-size: clamp(16px, 1.3vw, 24px); line-height: 1.25em; }
+.fsize_vlg { font-size: clamp(21px, 1.8vw, 36px); line-height: 1.5em; }
+.fsize_lg { font-size: clamp(18px, 1.5vw, 26px); line-height: 1.25em }
+.fsize_vmd { font-size: clamp(16px, 1.3vw, 21px); line-height: 1.25em; }
 .fsize_md { font-size: clamp(14px, 1vw, 19px); line-height: 1.25em; }
 .fsize_sm { font-size: clamp(12px, 0.8vw, 16px); line-height: 1.25em; }
-.fsize_vsm { font-size: clamp(10px, 0.625vw, 12px); line-height: 1.25em; }
+.fsize_vsm { font-size: clamp(11px, 0.625vw, 12px); line-height: 1.25em; }
 
 sup { font-size: 0.5em; top: -1em; }
 
@@ -692,7 +692,6 @@ sup { font-size: 0.5em; top: -1em; }
 	cursor: initial;
 	padding: 0;
 	max-width: 90%; max-height: 90%;
-	background: unset;
 	top: 50%; left: 50%; transform: translate(-50%, -50%);
 }
 

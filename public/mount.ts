@@ -3,6 +3,8 @@ const		mount_framework = () : void => {
 		import("./modules/animation").then((Module) : void => Module.default());
 	if (document.querySelector(".mab_collapse"))
 		import("./modules/collapse").then((Module) : void => Module.default());
+	if (document.querySelector(".mab_completion"))
+		import("./modules/completion").then((Module) : void => Module.default());
 	if (document.querySelector(".mab_img_cmp"))
 		import("./modules/img_compare").then((Module) : void => Module.default());
 	if (document.querySelector(".mab_modal__open"))

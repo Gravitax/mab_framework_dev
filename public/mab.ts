@@ -1,5 +1,7 @@
 import ElementCollection from "./ElementCollection";
 
+export const	__is_mobile : [number, boolean] = [1024, window.innerWidth < 1025];
+
 
 declare			global {
 	interface	Window {
@@ -28,7 +30,7 @@ const			load_splide = (head : ElementCollection) : void => {
 
 mab.init = () : void => {
 	const	head : ElementCollection = mab("head");
-
+	
 	head.create_element({ append : true, tag : "link", props : {
 		"type"	: "text/css",
 		"rel"	: "stylesheet",
@@ -41,6 +43,7 @@ mab.init = () : void => {
 		});
 	});
 };
-
-
+	
+	
 export default	mab;
+	
