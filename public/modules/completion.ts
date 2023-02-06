@@ -76,6 +76,7 @@ const		is_valid_keycode = (keycode : number) : boolean => {
 
 		list && list.classList.remove("active");
 	}
+	return (true);
 	return ((keycode >= 48 && keycode <= 90)
 		|| keycode == 189 || keycode == 222 || keycode == 46 || keycode == 8);
 };
