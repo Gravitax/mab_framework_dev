@@ -14,6 +14,8 @@ const		create_list = (clone : HTMLElement) : HTMLUListElement => {
 		tmp.className = "splide__slide";
 		tmp.style.background = element.style.background;
 		tmp.style.backgroundImage = element.style.backgroundImage;
+		tmp.style.backgroundSize = element.style.backgroundSize;
+		tmp.style.backgroundPosition = element.style.backgroundPosition
 		list.append(tmp);
 	});
 	return (list);
